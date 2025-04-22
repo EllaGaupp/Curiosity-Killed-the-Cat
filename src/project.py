@@ -46,17 +46,17 @@ def main():
         screen.fill(color)
         # Adds text to display
         screen_width, screen_height = screen.get_size()
-        text_rect = text.get_rect(center=(screen_width // 2, screen_height // 2))
-        screen.blit(text, text_rect)
-        text_rect = text.get_rect(center=(screen_width // 2 + 10, screen_height // 2 + 50))
-        screen.blit(text2, text_rect)
+        if not gameStart:
+            text_rect = text.get_rect(center=(screen_width // 2, screen_height // 2))
+            screen.blit(text, text_rect)
+            text_rect = text.get_rect(center=(screen_width // 2 + 10, screen_height // 2 + 50))
+            screen.blit(text2, text_rect)
         
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:  
-                    gameStart = True      
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:  
+                gameStart = True      
 
             
-        if gameStart:
+        elif gameStart:
             # Makes sure text is centered 
             screen.fill(color)
             screen_width, screen_height = screen.get_size()
@@ -67,13 +67,21 @@ def main():
                     if current_stage < len(day_stages)-1:
                         current_stage += 1 
                         last_key_time = current_time
+                    # transition to new day
                     else:
+                        screen.fill(color)
+                        if days == 0:
+                            days = 1
+                            day_stages= ["Adventure begins",
+                                        "Day 1 in town",
+                                        "mmm testing"]
                             current_stage = 0
+                            last_key_time = current_time
 
-            text = font.render(day_stages[current_stage], True, (255,0,0))
-            text_rect = text.get_rect(center=(screen_width // 2, screen_height // 2 + 150)) 
-            screen.blit(text, text_rect)
-
+            if 0 <= current_stage < len(day_stages):
+                text_rect = text.get_rect(center=(screen_width // 2, screen_height // 2 + 150)) 
+                text = font.render(day_stages[current_stage], True, (255,0,0))
+                screen.blit(text, text_rect)
                         
 
         pygame.display.flip()
