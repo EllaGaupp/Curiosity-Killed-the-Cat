@@ -15,6 +15,16 @@ def main():
     text = font.render("Curiosity Killed the Cat", True, (255,0,0))
     text2 = font.render("Press ENTER to Start", True, (255,0,0))
     gameStart = False
+    # to cyclt through text
+    day_stages = ["You're in a bustling tavern. You take up a spot in the corner.->",
+                  "You overhear that your fellow monster hunters have been going missing. ->",
+                  "You've decided to investigate the cause. ->",
+                  "Eveything seems to trace back to one secluded town... ->"]
+    current_stage = 0
+    days = 0
+    # delays to make text readable
+    last_key_time = 0
+    key_delay = 500
     
     while running:
         # Event Loops
@@ -40,18 +50,31 @@ def main():
         screen.blit(text, text_rect)
         text_rect = text.get_rect(center=(screen_width // 2 + 10, screen_height // 2 + 50))
         screen.blit(text2, text_rect)
+        
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                gameStart = True
+            if event.key == pygame.K_RETURN:  
+                    gameStart = True      
+
             
         if gameStart:
             # Makes sure text is centered 
             screen.fill(color)
             screen_width, screen_height = screen.get_size()
+            current_time = pygame.time.get_ticks()
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT and current_time - last_key_time > key_delay:
+                    if current_stage < len(day_stages)-1:
+                        current_stage += 1 
+                        last_key_time = current_time
+                    else:
+                            current_stage = 0
+
+            text = font.render(day_stages[current_stage], True, (255,0,0))
             text_rect = text.get_rect(center=(screen_width // 2, screen_height // 2 + 150)) 
-            # Instructions to player
-            text = font.render("Game started", True, (255,0,0))
             screen.blit(text, text_rect)
+
+                        
 
         pygame.display.flip()
 
