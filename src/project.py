@@ -13,6 +13,9 @@ def main():
         elif test_input == "Moon":
             choices_fullmoon()
             break
+        elif test_input == "Witch":
+            witch()
+
 
         print("\n\nCuriosity Killed the Cat") 
         # to make each line appear one by one
@@ -32,16 +35,17 @@ def main():
         text = "Day 1: Checking In"
         anim_print(text)
         input("")
-        text = "It's been a long day of traveling and you find a small hotel to stay in. \nSo far, the town is pretty unassuming other than the occasional glare cast your way.\n\nThe front desk clerk greets you: 'How may I be of service?'"
+        text = "It's been a long day of traveling and you find a small inn to stay in. \nSo far, the town is pretty unassuming other than the occasional glare cast your way.\n\nThe front desk clerk greets you: 'What d'ya need?'"
         anim_print(text)
         input("")
         front_desk()
-        text = "Pulling out your gold pouch you find you only have enough to stay 4 more days.\nYou hand over the full amount to the desk clerk and he hands you a rusted copper key to a room on the second floor." \
-        "There is a small window at the end of the hall on the second floor. The moon shines brightly. It'll probably be full tomorrow.\n" \
-        "You set your bag down and lay down. As the night goes on, you hear noises from outside."
         input("")
+        text = "Pulling out your gold pouch you find you only have enough to stay 4 more days.\nYou hand over the full amount to the desk clerk and he gives you a rusted copper key to a room on the second floor." \
+        "\nThere is a small window at the end of the hall on the second floor. The moon shines brightly. It'll probably be full tomorrow.\n" \
+        "You set your bag down and lay down. As the night goes on, you hear noises from outside.\n"
+        anim_print(text)
         night()
-        text = "Day 2: Investigation"
+        text = "\nDay 2: Investigation"
         anim_print(text)
         input("")
         text = "Feeling well rested, you're ready to start your search.\n" \
@@ -49,7 +53,9 @@ def main():
         anim_print(text)
         input("")
         choices_fullmoon()
-
+        text = "That was a busy day. It's gotten late. Best head back to the inn."
+        anim_print(text)
+        break
 
 def anim_print(text):
     """Works like print, but animates the display of each character
@@ -67,16 +73,16 @@ def front_desk():
     anim_print(prompt_msg)
     while True:
         choice = input(("1. I need a room for a few nights.\n"
-        "2. I've heard there's a monster in this town\n"))
+        "2. I've heard there's a monster in this town\n\n"))
 
         if choice == "1":
             text = "\nThe desk clerk's wrinkled hands sift through a large, worn ledger. Sunken eyes scan the ink filled, yellowed pages.\nHis bony finger stops " \
-            "on an empty line. He grabs a feather pen from an ink well. Hand hovering over the page, he replies:\nThere's a room for one open. It'll cost you 10 gold per night."
+            "on an empty line. He grabs a feather pen from an ink well. Hand hovering over the page, he replies:\n'There's a room for one open. It'll cost you 10 gold per night.'"
             anim_print(text)
             break
         elif choice == "2":
             text = "\nAll of a sudden, the atmosphere feels more tense. The desk clerk's bony finger traces over rows in a worn ledger. \nIt stops on a blank line and the clerk looks up at you with his sunken eyes."\
-            "He replies:\nThere's a room for one open. It'll cost you 15 gold per night"
+            "\nHe replies: 'There's a room for one open. It'll cost you 15 gold per night'"
             anim_print(text)
             break
         else:
@@ -90,13 +96,13 @@ def night():
         "3. Go back to sleep.\n\n"))
 
         if choice == "1":
-            text = "\nYou fling open the curtains, letting moonlight come pouring in. As you turn to go back to bed, a blur catches your eye. A bat perhaps?\n" \
+            text = "\nYou fling open the curtains, letting moonlight pour in. As you turn to go back to bed, a blur catches your eye. A bat perhaps?\n" \
             "Taking a closer look out of the window, you can't find the bat. However, you do spot a night guard on patrol.\n" \
             "You go back to sleep after a few minutes."
             anim_print(text)
             break
         elif choice == "2":
-            text = "\nYou light a candle and open the door. Sticking your head out into the hallway you hear a scurrying noise somewhere further down.\n" \
+            text = "\nYou light a candle and open the door. Sticking your head out into the hallway, you hear a scurrying noise somewhere further down.\n" \
             "As you approach, it vanishes. However, left behind is a silver bullet casing. Perhaps left over from a previous hunter?\n" \
             "You return to your room and sleep."
             anim_print(text)
@@ -116,6 +122,7 @@ def choices_fullmoon():
         if choice == "1":
             text = "\nwitch"
             anim_print(text)
+            witch()
             break
         elif choice == "2":
             text = "\nwerewolf"
@@ -125,6 +132,58 @@ def choices_fullmoon():
             text = "\nvampire"
             anim_print(text)
             break
+        else:
+            print("Invalid input. Please try again")
+
+def witch():
+    text = ("You enter the shop. It's filled with shelves of bottles and jars. Various plants hang from pots and the scent of strong spices lingers in the air.\n"
+    "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
+    anim_print(text)
+    prompt_msg = ("What do you do?")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("\n1. Ring the bell.\n"
+        "2. Investigate the plants.\n"
+        "3. Investigate the jars.\n\n"))
+        if choice == "1":
+            text = "\nbell"
+            anim_print(text)
+            if question_witch():
+                break
+        elif choice == "2":
+            text = "\nplants"
+            anim_print(text)
+        elif choice == "3":
+            text = "\njars"
+            anim_print(text)
+        else:
+            print("Invalid input. Please try again")
+
+def question_witch():
+    text = ("\nThe cat awakens from its nap and leaps gracefully off the counter. It dissapears behind a doorway shielded by a curtain. \nMoments later the Apothecary emerges, large book in hand.\n"
+    "She has long, dark, raven hair that's half tied up. Her dress flows around her, reminiscent of robes, but with shorter sleeves.\n"
+    "She greets you: 'How may I help you?'\n")
+    anim_print(text)
+    prompt_msg = ("How do you reply?")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("\n1. What's the book?'.\n"
+        "2. What do you sell?\n"
+        "3. Do you know about any monsters in town?\n"
+        "4. Thank her and leave.\n\n"))
+        if choice == "1":
+            text = "\nbook"
+            anim_print(text) 
+        elif choice == "2":
+            text = "\nsell"
+            anim_print(text)
+        elif choice == "3":
+            text = "\nmonsters"
+            anim_print(text)
+        elif choice == "4":
+            text = "\nyou leave"
+            anim_print(text)
+            return True
         else:
             print("Invalid input. Please try again")
 
