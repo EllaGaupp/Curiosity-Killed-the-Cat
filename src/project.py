@@ -1,4 +1,5 @@
 import time
+import sys
 
 filename = 'bag.csv'
 def main():
@@ -273,12 +274,15 @@ def question_werewolf_full():
         elif choice == "2":
             text = "\nuh oh"
             anim_print(text)
+            moon_fight()
         elif choice == "3":
             text = "\ncoward"
             return True
         else:
             print("Invalid input. Please try again")
-
+def moon_fight():
+    print("fight fight fight")
+    sys.exit("it be gone")
 def werewolf():
     print("yep")
 def question_werewolf():
