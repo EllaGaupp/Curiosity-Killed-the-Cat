@@ -2,27 +2,14 @@ import time
 import sys
 
 filename = 'bag.csv'
+witch_visit = False
+werewolf_visit = False
+vampire_visit = False
+
 def main():
+    global witch_visit, werewolf_visit, vampire_visit
     # to test the code more efficeintly
     while True:
-        test_input = input("Find a spot?\n")
-        if test_input == "Front":
-            front_desk()
-            break
-        elif test_input == "Night":
-            night()
-            break
-        elif test_input == "Moon":
-            choices_fullmoon()
-            break
-        elif test_input == "Witch":
-            witch()
-            break
-        elif test_input == "Choice":
-            choices()
-            break
-
-
         print("\n\nCuriosity Killed the Cat") 
         # to make each line appear one by one
         input("")
@@ -58,7 +45,8 @@ def main():
         "Coming into town you noticed three main suspects: The Apothecary, The Lumberjack, and The Night Guard."
         anim_print(text)
         input("")
-        choices_fullmoon()
+        witch_visit, werewolf_visit, vampire_visit = choices_fullmoon(
+        witch_visit, werewolf_visit, vampire_visit)
         text = "That was a busy day. It's gotten late. Best head back to the inn."
         anim_print(text)
         prompt_msg = (" Once you get back to the room you can check your bag.\n")
@@ -81,7 +69,8 @@ def main():
         text = "You awaken ready to continue your search."
         anim_print(text)
         input("")
-        choices()
+        witch_visit, werewolf_visit, vampire_visit = choices(
+        witch_visit, werewolf_visit, vampire_visit)
         text = "\nDay 4: Investigation"
         anim_print(text)
         input("")
@@ -147,7 +136,7 @@ def night():
             break
         else:
             print("Invalid input. Please try again")
-def choices_fullmoon():
+def choices_fullmoon(witch_visit, werewolf_visit, vampire_visit):
     prompt_msg = ("Who do you want to investigate today?")
     anim_print(prompt_msg)
     while True:
@@ -155,19 +144,22 @@ def choices_fullmoon():
         "2. The Lumberjack\n"
         "3. The Night Guard.\n\n"))
 
-        if choice == "1":
+        if choice == "1" and not witch_visit:
+            witch_visit = True
             witch()
             break
-        elif choice == "2":
+        elif choice == "2" and not werewolf_visit:
+            werewolf_visit = True
             werewolf_full()
             break
-        elif choice == "3":
+        elif choice == "3" and not vampire_visit:
+            vampire_visit = True
             vampire()
             break
         else:
             print("Invalid input. Please try again")
-
-def choices():
+    return witch_visit, werewolf_visit, vampire_visit
+def choices(witch_visit, werewolf_visit, vampire_visit):
     prompt_msg = ("Who do you want to investigate today?")
     anim_print(prompt_msg)
     while True:
@@ -175,17 +167,23 @@ def choices():
         "2. The Lumberjack\n"
         "3. The Night Guard.\n\n"))
 
-        if choice == "1":
+        if choice == "1" and witch_visit == False:
             witch()
+            witch_visit = True
             break
-        elif choice == "2":
+        elif choice == "2" and werewolf_visit == False:
             werewolf()
+            werewolf_visit = True
             break
-        elif choice == "3":
+        elif choice == "3" and vampire_visit == False:
             vampire()
+            vampire_visit = True
             break
+        elif choice == "1" or "2" or "3":
+            visited()
         else:
             print("Invalid input. Please try again")
+    return witch_visit, werewolf_visit, vampire_visit
 def witch():
     text = ("You enter the shop. It's filled with shelves of bottles and jars. Various plants hang from pots and the scent of strong spices lingers in the air.\n"
     "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
@@ -334,11 +332,16 @@ def question_werewolf():
             print("Invalid input. Please try again")
     print("yep")
 def vampire():
-    print("yep")
+    while True:
+        print("yep")
 def question_vampire():
     print("yep")
 
 
+
+def visited():
+    text = "You've already investigated them. Choose again."
+    anim_print(text)
 def add_item(filename, new_item, new_use):
     content = [f"{new_item},{new_use}\n"]
     with open(filename, 'a') as file:
