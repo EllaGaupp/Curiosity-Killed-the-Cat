@@ -70,7 +70,13 @@ def main():
 
         text = "\nYou sleep\n"
         anim_print(text)
-
+        text = "\nDay 3: Investigation"
+        anim_print(text)
+        input("")
+        text = "You awaken ready to continue your search."
+        anim_print(text)
+        input("")
+        choices()
         break
 def display_inventory(filename):
     with open(filename) as file:
@@ -141,21 +147,36 @@ def choices_fullmoon():
         "3. The Night Guard.\n\n"))
 
         if choice == "1":
-            text = "\nwitch"
-            anim_print(text)
             witch()
             break
         elif choice == "2":
-            text = "\nwerewolf"
-            anim_print(text)
+            werewolf_full()
             break
         elif choice == "3":
-            text = "\nvampire"
-            anim_print(text)
+            vampire()
             break
         else:
             print("Invalid input. Please try again")
 
+def choices():
+    prompt_msg = ("Who do you want to investigate today?")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("1. The Apothecary.\n"
+        "2. The Lumberjack\n"
+        "3. The Night Guard.\n\n"))
+
+        if choice == "1":
+            witch()
+            break
+        elif choice == "2":
+            werewolf()
+            break
+        elif choice == "3":
+            vampire()
+            break
+        else:
+            print("Invalid input. Please try again")
 def witch():
     text = ("You enter the shop. It's filled with shelves of bottles and jars. Various plants hang from pots and the scent of strong spices lingers in the air.\n"
     "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
@@ -211,6 +232,62 @@ def question_witch():
             return True
         else:
             print("Invalid input. Please try again")
+
+def werewolf_full():
+    text = ("\nYou wake up and try to find the Lumberjack. After hours of searching you cant find him\n"
+    "He doesn't seem to be here...odd.\n")
+    anim_print(text)
+    prompt_msg = ("What do you do?")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("\n1. Ask Little Girl\n"
+        "2. Ask Old Man\n"
+        "3. Ask Young Couple\n"
+        "4. Ready to Continue\n\n"))
+        if choice == "1":
+            text = "\ngirl"
+            anim_print(text)
+        elif choice == "2":
+            text = "\nold guy"
+            anim_print(text)
+        elif choice == "3":
+            text = "\ncouple"
+            anim_print(text)
+        elif choice == "4":
+            if question_werewolf_full():
+                break
+        else:
+            print("Invalid input. Please try again")
+def question_werewolf_full():
+    text = ("Night it starting to fall. You have some suspicions of the Lumberjack's whereabouts.\n")
+    anim_print(text)
+    prompt_msg = ("What do you do?")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("\n1. Check the town again\n"
+        "2. Check the forest\n"
+        "3. Go back to the Inn\n\n"))
+        if choice == "1":
+            text = "\nnope"
+            anim_print(text)
+        elif choice == "2":
+            text = "\nuh oh"
+            anim_print(text)
+        elif choice == "3":
+            text = "\ncoward"
+            return True
+        else:
+            print("Invalid input. Please try again")
+
+def werewolf():
+    print("yep")
+def question_werewolf():
+    print("yep")
+def vampire():
+    print("yep")
+def question_vampire():
+    print("yep")
+
 
 def add_item(filename, new_item, new_use):
     content = [f"{new_item},{new_use}\n"]
