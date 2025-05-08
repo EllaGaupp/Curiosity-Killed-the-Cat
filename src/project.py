@@ -17,6 +17,10 @@ def main():
             break
         elif test_input == "Witch":
             witch()
+            break
+        elif test_input == "Choice":
+            choices()
+            break
 
 
         print("\n\nCuriosity Killed the Cat") 
@@ -78,6 +82,10 @@ def main():
         anim_print(text)
         input("")
         choices()
+        text = "\nDay 4: Investigation"
+        anim_print(text)
+        input("")
+
         break
 def display_inventory(filename):
     with open(filename) as file:
@@ -284,8 +292,46 @@ def moon_fight():
     print("fight fight fight")
     sys.exit("it be gone")
 def werewolf():
-    print("yep")
+    prompt_msg = ("\nYou find the lumberjack by the edge of town. He looks like he's about to head out.\n"
+    "He turns to you, axe in hand and asks: 'What're you doin' out here?'\n")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("How do you respond?\n"
+        "1. I'd like to ask you some questions.\n"
+        "2. May I join you?\n"
+        "3. Nothing much. You?\n\n"))
+
+        if choice == "1" or "2" or "3":
+            if question_werewolf():
+                break
+        else:
+            print("Invalid input. Please try again")
 def question_werewolf():
+    prompt_msg = ("He doesn't reply. Instead, he turns towards the forrest and motions for you to follow.\n")
+    anim_print(prompt_msg)
+    while True:
+        choice = input(("Do you go with him?\n"
+        "1. yes\n"
+        "2. no\n\n"))
+
+        if choice == "1":
+            text = "You ultimately decide to go with him. Following a winding path, you reach a clearing. " \
+            "\nThere the Lumberjack takes his axe and starts swinging at a nearby tree. He fells it's very quickly...almost too quickly.\n" \
+            "He appears to be in deep concentration with his job. You won't get much questioning done today, but you still stay to observe.\n" \
+            "You note tufts of fur clinging to his jacket. As the sun sets, you start to hear the howls of wolves, yet he seems unbothered."
+            anim_print(text)
+            text = "\nEventually, he starts to head back, only acknowledging your existence when he looks back to make sure you follow.\n" \
+            "Upon reaching town, he simply walks off towards his house. It seems he's just wasted your time.\n\n" \
+            "Or has he? You bend down and pick up a tuft of fur that had fallen from him and put it in your bag."
+            anim_print(text)
+            new_item = "Tuft of Fur"
+            new_use = "looks like wolf fur"
+            add_item(filename, new_item, new_use)
+            return True
+        elif choice == "2":
+            return True
+        else:
+            print("Invalid input. Please try again")
     print("yep")
 def vampire():
     print("yep")
