@@ -1,5 +1,6 @@
 import time
 
+filename = 'bag.csv'
 def main():
     # to test the code more efficeintly
     while True:
@@ -55,7 +56,27 @@ def main():
         choices_fullmoon()
         text = "That was a busy day. It's gotten late. Best head back to the inn."
         anim_print(text)
+        prompt_msg = (" Once you get back to the room you can check your bag.\n")
+        anim_print(prompt_msg)
+        choice = input("\n1. To check your bag\n"
+        "2. Skip\n\n")
+        if choice == "1":
+            display_inventory(filename)
+        elif choice == "2":
+            print("")
+            text = "You decided not to check your bag tonight."
+        else:
+            print("Invalid input. Please try again")
+
+        text = "\nYou sleep\n"
+        anim_print(text)
+
         break
+def display_inventory(filename):
+    with open(filename) as file:
+            for line in file:
+                item, use = line.rstrip().split(',')
+                print(f"{item} - {use}")
 
 def anim_print(text):
     """Works like print, but animates the display of each character
@@ -65,7 +86,7 @@ def anim_print(text):
     """
     for charcter in text:
         print(charcter, end="", flush=True)
-        time.sleep(0.03)
+        time.sleep(0.00)
     print()
 def front_desk():
     # creates a loop so if there is an invalid imput it asks again
@@ -164,6 +185,7 @@ def question_witch():
     "She has long, dark, raven hair that's half tied up. Her dress flows around her, reminiscent of robes, but with shorter sleeves.\n"
     "She greets you: 'How may I help you?'\n")
     anim_print(text)
+    input("")
     prompt_msg = ("How do you reply?")
     anim_print(prompt_msg)
     while True:
@@ -181,11 +203,19 @@ def question_witch():
             text = "\nmonsters"
             anim_print(text)
         elif choice == "4":
-            text = "\nyou leave"
+            text = "\nyou leave\n"
             anim_print(text)
+            new_item = "Mysterious Page"
+            new_use = "Spell OoOOoOO"
+            add_item(filename, new_item, new_use)
             return True
         else:
             print("Invalid input. Please try again")
+
+def add_item(filename, new_item, new_use):
+    content = [f"{new_item},{new_use}\n"]
+    with open(filename, 'a') as file:
+        file.writelines(content)
 
 if __name__ == "__main__":
     main()
