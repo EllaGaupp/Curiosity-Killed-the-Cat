@@ -7,6 +7,16 @@ witch_visit = False
 werewolf_visit = False
 vampire_visit = False
 
+WW_dodge = ["he leaps away just in time.", "the Werewolf swats the dagger away.", "he barely jumps out of the way.",
+            "the Werewolf quickly backs out of reach."]
+WW_attack = ["The Werewolf lunges at you with its fangs.", "He swipes at you with his claws.", "The Werewolf raises its paw to attack.", ""
+"He snaps at you with his teeth.", "The Werewolf charges towards you.", "He pounces with teeth bared."]
+WW_reaction = ["He snarls at the cut", "He growls, wound starting to bleed", "He wimpers as the blade slices.", "He grimaces at the new cut."]
+Player_dodge = ["You cleanly sidestep the attack", "You dart to one side narrowly avoiding the attack", "You predict the move and are able to dodge"
+                , "You leap out of the way of the attack."]
+Player_attack_dagger = ["Your dagger sings as it slices through the air and through fur.", "You swing towards the Werewolf.", "The silver dagger gleams as you raise it to attack.",
+                        "You step forward, slashing in front of you.", "The silver dagger glints in moonlight as you bring it down." ]
+Player_hit = ["You try to dodge, but trip and get hit.", "You try to leap away, but you aren't quick enough.", "You let your guard down and get hurt.", "You try to parry and fail."]
 def main():
     global witch_visit, werewolf_visit, vampire_visit
     # to test the code more efficeintly
@@ -298,7 +308,7 @@ def werewolf_full():
     text = ("\nYou wake up and try to find the Lumberjack. After hours of searching you cant find him\n"
     "He doesn't seem to be here...odd.\n")
     anim_print(text)
-    prompt_msg = ("What do you do?")
+    prompt_msg = ("Who do you ask?")
     anim_print(prompt_msg)
     while True:
         choice = input(("\n1. Ask Little Girl\n"
@@ -306,13 +316,18 @@ def werewolf_full():
         "3. Ask Young Couple\n"
         "4. Ready to Continue\n\n"))
         if choice == "1":
-            text = "\ngirl"
+            text = "\nShe looks up from her game comprised of sticks and stones on the ground.\n" \
+            "She tells you: 'He's usually not here because tonight is special.'\n" \
+            "and then runs off to play elsewhere."
             anim_print(text)
         elif choice == "2":
-            text = "\nold guy"
+            text = "\nYou see him sitting in the shade of a building, just watching the bustling town sqaure.\n" \
+            "He says: 'Perhaps he left early today. He may already be in the woods.'\n" \
+            "You thank him for the information and move on."
             anim_print(text)
         elif choice == "3":
-            text = "\ncouple"
+            text = "\nThey are sitting on the edge of the fountain. They cast glances at each other, caustious about answering you.\n" \
+            "Finally, one of them speaks: 'He should still be in town. Maybe you've just missed him.'"
             anim_print(text)
         elif choice == "4":
             if question_werewolf_full():
@@ -330,14 +345,13 @@ def question_werewolf_full():
         "2. Check the forest\n"
         "3. Go back to the Inn\n\n"))
         if choice == "1":
-            text = "\nnope"
+            text = "\nYou once again scour the town to no avail. Better luck tommorrow."
             anim_print(text)
+            return True
         elif choice == "2":
-            text = "\nuh oh"
-            anim_print(text)
             werewolf_battle()
         elif choice == "3":
-            text = "\ncoward"
+            text = "\nYou've decided that further searching is pointless.\n"
             return True
         else:
             print("Invalid input. Please try again")
@@ -436,45 +450,119 @@ def final_choice():
 def werewolf_battle():
     player_hp = 50
     monster_hp = 60
-    text = "You find the lumberjack in the woods."
+    text = "You find the lumberjack in the woods. He's crouched in the clearing, moonlight outlining his silhouette.\n" \
+    "He hears you approaching and whips around to face you. His body starts changing, growing.\n" \
+    "Claws morph from nails, teeth sharpen into fangs. You know what this is.\n" \
+    "You attack."
     anim_print(text)
-    while True:
-        print(f"\n{player_hp} player hp")
-        print(f"\n{monster_hp} monster hp\n")
-        if player_hp != 0 and monster_hp !=0:
-            random_number = random.randint(1,10)
-            if random_number == 10:
-                print(f"{random_number} player accuracy")
-                print("player miss")
-                input("")
-            else:
-                print(f"{random_number} player accuracy")
-                print("player hit")
-                monster_hp += -10  
-                input("")
-            random_number = random.randint(1,10)
-            if random_number == 9 or random_number == 10:
-                print(f"{random_number} monster accuracy")
-                print("monster miss")
-                input("")
-            else:
-                print(f"{random_number} monster accuracy")
-                print("monster hit")
-                player_hp += -10 
-                input("")
-        elif player_hp == 0:
-            print("Monster Wins")
-            break
-        elif monster_hp == 0:
-            print("Player Wins")
-            break
-        else:
-            print("tie")
-            break
+    choice = input("What weapon do you fight with?\n" \
+        "1. Torch\n" \
+        "2. Wooden Stake\n" \
+        "3. Silver Dagger\n\n")
+    if choice == "3":
+        while True:
+            # might add randomized descriptions of attack
+            print(f"\n{player_hp} player hp")
+            print(f"\n{monster_hp} monster hp\n")
+            if player_hp != 0 and monster_hp !=0:
+                random_number = random.randint(1,10)
+                if random_number == 10:
+                    text = f"\nYou swing your dagger towards him, but {pick_random_item(WW_dodge)}\n"
+                    anim_print(text)
+                    input("")
+                else:
+                    text = f"{pick_random_item(Player_attack_dagger)}\n"
+                    anim_print(text)
+                    text = f"{pick_random_item(WW_reaction)}\n"
+                    anim_print(text) 
+                    monster_hp += -10  
+                    input("")
+                    random_number = random.randint(1,10)
 
-def werewolf_lose():
-    print("ya lost")
+                if random_number == 9 or random_number == 10:
+                    text = f"{pick_random_item(WW_attack)}\n"
+                    anim_print(text) 
+                    text = f"{pick_random_item(Player_dodge)}\n"
+                    anim_print(text)                    
+                    input("")
+                else: 
+                    text = f"{pick_random_item(WW_attack)}\n"
+                    anim_print(text)
+                    text = f"{pick_random_item(Player_hit)}\n"
+                    anim_print(text) 
+                    player_hp += -10 
+                    input("")
+            elif player_hp == 0 and monster_hp != 0:
+                text = "You fall to the ground, dagger dropping from your hand.\n" \
+                "The Werewolf approaches you menacingly. You brace yourself for the final blow...\n"
+                anim_print(text)
+                input("")
+                text = "but all you feel is a bite on your arm.\n" \
+                "Then you start shifting, growing, changing. You're a werewolf now."
+                anim_print(text)
+                input("")
+                text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
+                "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n"\
+                "You think at first they're there to be rid of you, but on closer inspection you start to notice...\n"
+                anim_print(text)
+                input("")
+                text = "Every one of them is a monster of some sort. All living peacfully in their town.\n" \
+                "Perhaps you should have left them alone when you had the chance.\n" \
+                "Too late now...Now you're one of them."
+                anim_print(text)
+                input("")
+                text = "End"
+                anim_print(text)
+                sys.exit()
+            elif monster_hp == 0 and player_hp != 0:
+                player_wins()
+            else:
+                text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
+                player_wins()      
+    else:
+        text = "Uh oh. While it does some damage, that weapon can't kill a werewolf."
+        anim_print(text)
+        text = "After some fighting, you're tackled and pinned.\n" \
+        "The Werewolf approaches you menacingly. You brace yourself for the final blow..."
+        anim_print(text)
+        input("")
+        text = "but all you feel is a bite on your arm.\n" \
+        "Then you start shifting, growing, changing. You're a werewolf now."
+        anim_print(text)
+        input("")
+        text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
+        "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n" \
+        "You think at first they're there to get rid of you, but on closer inspection you start to notice...\n"
+        anim_print(text)
+        input("")
+        text = "Every one of them is a monster of some sort. All living peacefully in their town.\n" \
+        "Perhaps you should have left them alone when you had the chance.\n" \
+        "Too late now...Now you're one of them."
+        anim_print(text)
+        input("")
+        text = "End"
+        anim_print(text)
+        sys.exit()
 
+def player_wins():
+    text = "Success! The monster has been defeated. You go to announce to the townsfolk that they are free!\n" \
+    "However, upon sharing your vitory, all you get are looks of horror.\n" \
+    "Sobbing, wailing, howling can all be heard from the crowd gathering around you.\n" \
+    "You're so confused. You saved them! Why are they...\n"
+    anim_print(text)
+    input("")
+    text = "Oh. Now you see.\n" \
+    "One by one the townsfolk reveal themselves to be various monsters...\n" \
+    "and you've just killed one of their own."
+    anim_print(text)
+    input("")
+    text = "The crowd decends upon you with anguish and rage. There is no escaping.\n" \
+    "If only you'd left when you could.\n"
+    anim_print(text)
+    input("")
+    text = "End"
+    anim_print(text)
+    sys.exit()
 #  technical stuff
 def visited():
     text = "You've already investigated them. Choose again."
@@ -487,7 +575,7 @@ def anim_print(text):
     """
     for charcter in text:
         print(charcter, end="", flush=True)
-        time.sleep(0.04)
+        time.sleep(0.00)
     print()
 def add_item(filename, new_item, new_use):
     content = [f"{new_item},{new_use}\n"]
@@ -498,6 +586,8 @@ def display_inventory(filename):
             for line in file:
                 item, use = line.rstrip().split(',')
                 print(f"{item} - {use}")
-
+def pick_random_item(items):
+    idx = random.randrange(len(items))
+    return items[idx]
 if __name__ == "__main__":
     main()
