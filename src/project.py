@@ -1,5 +1,6 @@
 import time
 import sys
+import random
 
 filename = 'bag.csv'
 witch_visit = False
@@ -36,10 +37,16 @@ def main():
         input("")
         front_desk()
         input("")
-        text = "Pulling out your gold pouch you find you only have enough to stay 4 more days.\nYou hand over the full amount to the desk clerk and he gives you a rusted copper key to a room on the second floor." \
-        "\nThere is a small window at the end of the hall on the second floor. The moon shines brightly. It'll probably be full tomorrow.\n" \
+        text = "Pulling out your gold pouch you find you only have enough to stay 4 more days.\nYou hand over the full amount to the desk clerk and he gives you a rusted copper key to a room on the second floor." 
+        anim_print(text)
+        input("")
+        with open('hallway.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text) 
+        text = "\nThere is a small window at the end of the hall on the second floor. The moon shines brightly. It'll probably be full tomorrow.\n" \
         "You set your bag down and lay down. As the night goes on, you hear noises from outside.\n"
         anim_print(text)
+        input("")
         night()
         text = "\nDay 2: Investigation"
         anim_print(text)
@@ -64,7 +71,7 @@ def main():
         else:
             print("Invalid input. Please try again")
 
-        text = "\nYou sleep\n"
+        text = "\nYou sleep.\n"
         anim_print(text)
         text = "\nDay 3: Investigation"
         anim_print(text)
@@ -179,6 +186,7 @@ def night():
             anim_print(text)
             break
         elif choice == "3":
+            
             break
         else:
             print("Invalid input. Please try again")
@@ -326,15 +334,12 @@ def question_werewolf_full():
         elif choice == "2":
             text = "\nuh oh"
             anim_print(text)
-            moon_fight()
+            werewolf_battle()
         elif choice == "3":
             text = "\ncoward"
             return True
         else:
             print("Invalid input. Please try again")
-def moon_fight():
-    print("fight fight fight")
-    sys.exit("it be gone")
 def werewolf():
     prompt_msg = ("\nYou find the lumberjack by the edge of town. He looks like he's about to head out.\n"
     "He turns to you, axe in hand and asks: 'What're you doin' out here?'\n")
@@ -378,22 +383,90 @@ def question_werewolf():
             print("Invalid input. Please try again")
 def vampire():
     while True:
-        if question_vampire():
-            break
+        prompt_msg = ("\nYou wait until evening. From the shadows appears the Night Guard. He has a long cloak and pale face.\n"
+        "As you intercpt his path, you notice the glint of a glass in his hand. It's filled with a red liquid. Wine?\n"
+        "He stops infront of you, taking a sip from his glass.\n"
+        "He demands: 'State your buiness. What you doing out so late?'")
+        anim_print(prompt_msg)
+        choice = input("How do you respond?\n"
+        "1. I'd like to ask you a few questions.\n"
+        "2. None of your buisness.\n"
+        "3. Why do you have a drink and what is it?\n\n")
+        if choice == "1":
+            text = "The Night Guard replies coldly: 'I could say the samne.'"
+            anim_print(text)
+            if question_vampire():
+                break
+        elif choice == "2":
+            text = "The Night Guard replies coldly: 'As the guard of this town, it is my buisness.'"
+            anim_print(text)
+            if question_vampire():
+                break
+        elif choice == "3":
+            text = "The Night Guard replies coldly: 'What I do and drink is none of your concern.'"
+            anim_print(text)
+            if question_vampire():
+                break
+        else:
+            print("Invalid input. Please try again")
 def question_vampire():
     while True:
-        print("yep")
+        text = "\nHe then sighs and swirls his glass. \n" \
+        "He asks: 'I suppose you're here to ask me about a monster. I'll tell you right now you're not the first to ask.\n" \
+        "I'd suggest you just drop the matter. Trust me, if there was a monster here, I'd know.\n" \
+        "Everyone knows everyone. How do we know you're not the monster?'\n" 
+        anim_print(text)
+        input("")
+        text = "After taking a large drink from his cup, the Night Guard sets the now empty glass on a near by table.\n" \
+        "He turns to continue his patrol: 'Take it. I have nothing to hide from you.'"
+        anim_print(text)
+        new_item = "Empty Glass"
+        new_use = "Used to hold mysterious red liquid"
+        add_item(filename, new_item, new_use)
         return True
 def final_choice():
     print("choose")
 
 def werewolf_battle():
-    # need to select item to use in battle
-    # need to make sure only the right item works
-    # need to give health to player and monster
-    # need to give % chance to hit for each
-    print("fight dight dight")
-    
+    player_hp = 50
+    monster_hp = 60
+    text = "You find the lumberjack in the woods."
+    anim_print(text)
+    while True:
+        print(f"\n{player_hp} player hp")
+        print(f"\n{monster_hp} monster hp\n")
+        if player_hp != 0 and monster_hp !=0:
+            random_number = random.randint(1,10)
+            if random_number == 10:
+                print(f"{random_number} player accuracy")
+                print("player miss")
+                input("")
+            else:
+                print(f"{random_number} player accuracy")
+                print("player hit")
+                monster_hp += -10  
+                input("")
+            random_number = random.randint(1,10)
+            if random_number == 9 or random_number == 10:
+                print(f"{random_number} monster accuracy")
+                print("monster miss")
+                input("")
+            else:
+                print(f"{random_number} monster accuracy")
+                print("monster hit")
+                player_hp += -10 
+                input("")
+        elif player_hp == 0:
+            print("Monster Wins")
+            break
+        elif monster_hp == 0:
+            print("Player Wins")
+            break
+        else:
+            print("tie")
+            break
+def werewolf_lose():
+    print("ya lost")
 def visited():
     text = "You've already investigated them. Choose again."
     anim_print(text)
