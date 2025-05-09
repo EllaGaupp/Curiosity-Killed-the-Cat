@@ -34,6 +34,9 @@ def main():
         input("")
         text = "It's been a long day of traveling and you find a small inn to stay in. \nSo far, the town is pretty unassuming other than the occasional glare cast your way.\n\nThe front desk clerk greets you: 'What d'ya need?'"
         anim_print(text)
+        with open('clerk.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         input("")
         front_desk()
         input("")
@@ -129,22 +132,7 @@ def main():
         else:
             print("Invalid input. Please try again")
         break
-def display_inventory(filename):
-    with open(filename) as file:
-            for line in file:
-                item, use = line.rstrip().split(',')
-                print(f"{item} - {use}")
 
-def anim_print(text):
-    """Works like print, but animates the display of each character
-    
-    :param text: Text to print
-    "type text: str
-    """
-    for charcter in text:
-        print(charcter, end="", flush=True)
-        time.sleep(0.00)
-    print()
 def front_desk():
     # creates a loop so if there is an invalid imput it asks again
     prompt_msg = ("How do you reply?")
@@ -152,7 +140,6 @@ def front_desk():
     while True:
         choice = input(("1. I need a room for a few nights.\n"
         "2. I've heard there's a monster in this town\n\n"))
-
         if choice == "1":
             text = "\nThe desk clerk's wrinkled hands sift through a large, worn ledger. Sunken eyes scan the ink filled, yellowed pages.\nHis bony finger stops " \
             "on an empty line. He grabs a feather pen from an ink well. Hand hovering over the page, he replies:\n'There's a room for one open. It'll cost you 10 gold per night.'"
@@ -165,6 +152,7 @@ def front_desk():
             break
         else:
             print("Invalid input. Please try again")
+
 def night():
     prompt_msg = ("What do you do?")
     anim_print(prompt_msg)
@@ -183,13 +171,16 @@ def night():
             text = "\nYou light a candle and open the door. Sticking your head out into the hallway, you hear a scurrying noise somewhere further down.\n" \
             "As you approach, it vanishes. However, left behind is a silver bullet casing. Perhaps left over from a previous hunter?\n" \
             "You return to your room and sleep."
+            new_item = "Silver Bullet Casing"
+            new_use = "perhaps a previous hunter's?"
+            add_item(filename, new_item, new_use)
             anim_print(text)
             break
         elif choice == "3":
-            
             break
         else:
             print("Invalid input. Please try again")
+
 def choices_fullmoon(witch_visit, werewolf_visit, vampire_visit):
     prompt_msg = ("Who do you want to investigate today?")
     anim_print(prompt_msg)
@@ -213,6 +204,7 @@ def choices_fullmoon(witch_visit, werewolf_visit, vampire_visit):
         else:
             print("Invalid input. Please try again")
     return witch_visit, werewolf_visit, vampire_visit
+
 def choices(witch_visit, werewolf_visit, vampire_visit):
     prompt_msg = ("Who do you want to investigate today?")
     anim_print(prompt_msg)
@@ -238,6 +230,7 @@ def choices(witch_visit, werewolf_visit, vampire_visit):
         else:
             print("Invalid input. Please try again")
     return witch_visit, werewolf_visit, vampire_visit
+
 def witch():
     text = ("You enter the shop. It's filled with shelves of bottles and jars. Various plants hang from pots and the scent of strong spices lingers in the air.\n"
     "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
@@ -249,15 +242,17 @@ def witch():
         "2. Investigate the plants.\n"
         "3. Investigate the jars.\n\n"))
         if choice == "1":
-            text = "\nbell"
+            text = "\n*ding*"
             anim_print(text)
             if question_witch():
                 break
         elif choice == "2":
-            text = "\nplants"
+            text = "\nYou're to recognize rosemary, basil, mint, and lavender.\n" \
+            "However, there are some plants of strange colors tucked away that you can't identify."
             anim_print(text)
         elif choice == "3":
-            text = "\njars"
+            text = "\nPeering into the nearest jars you see various eyes and limbs.\n" \
+            "The closest three jars are labeled as 'Eyes of Toads', 'Legs of Frogs', and 'Tails of Lizards'"
             anim_print(text)
         else:
             print("Invalid input. Please try again")
@@ -276,19 +271,24 @@ def question_witch():
         "3. Do you know about any monsters in town?\n"
         "4. Thank her and leave.\n\n"))
         if choice == "1":
-            text = "\nbook"
+            text = "\nJust some medicinal recipes passed down through my family.\n" \
+            "If you're sick you tell me your symptoms, I can find a cure for you in here."
             anim_print(text) 
         elif choice == "2":
-            text = "\nsell"
+            text = "\nMostly medicines that I make. However, I'll sell ingredients too.\n" \
+            "To outsiders our healing methods may seem a little odd, but eyes of toads work wonders."
             anim_print(text)
         elif choice == "3":
-            text = "\nmonsters"
+            text = "\nMonsters? In this town? The most monstrous thing I've seen all year\n" \
+            "is a wave of bad colds that came through a while back."
             anim_print(text)
         elif choice == "4":
-            text = "\nyou leave\n"
+            text = "\nThe Apothecary nods, closes her book, and spins on her heel to return to the back of the shop.\n" \
+            "In her haste, a loose page flew out of the book and lands in front of you.\n" \
+            "You pick it up to look at later."
             anim_print(text)
             new_item = "Mysterious Page"
-            new_use = "Spell OoOOoOO"
+            new_use = "it looks more like a spell than recipe"
             add_item(filename, new_item, new_use)
             return True
         else:
@@ -319,6 +319,7 @@ def werewolf_full():
                 break
         else:
             print("Invalid input. Please try again")
+
 def question_werewolf_full():
     text = ("Night it starting to fall. You have some suspicions of the Lumberjack's whereabouts.\n")
     anim_print(text)
@@ -340,6 +341,7 @@ def question_werewolf_full():
             return True
         else:
             print("Invalid input. Please try again")
+
 def werewolf():
     prompt_msg = ("\nYou find the lumberjack by the edge of town. He looks like he's about to head out.\n"
     "He turns to you, axe in hand and asks: 'What're you doin' out here?'\n")
@@ -355,6 +357,7 @@ def werewolf():
                 break
         else:
             print("Invalid input. Please try again")
+
 def question_werewolf():
     prompt_msg = ("He doesn't reply. Instead, he turns towards the forrest and motions for you to follow.\n")
     anim_print(prompt_msg)
@@ -381,6 +384,7 @@ def question_werewolf():
             return True
         else:
             print("Invalid input. Please try again")
+
 def vampire():
     while True:
         prompt_msg = ("\nYou wait until evening. From the shadows appears the Night Guard. He has a long cloak and pale face.\n"
@@ -409,6 +413,7 @@ def vampire():
                 break
         else:
             print("Invalid input. Please try again")
+
 def question_vampire():
     while True:
         text = "\nHe then sighs and swirls his glass. \n" \
@@ -424,6 +429,7 @@ def question_vampire():
         new_use = "Used to hold mysterious red liquid"
         add_item(filename, new_item, new_use)
         return True
+
 def final_choice():
     print("choose")
 
@@ -465,15 +471,33 @@ def werewolf_battle():
         else:
             print("tie")
             break
+
 def werewolf_lose():
     print("ya lost")
+
+#  technical stuff
 def visited():
     text = "You've already investigated them. Choose again."
     anim_print(text)
+def anim_print(text):
+    """Works like print, but animates the display of each character
+    
+    :param text: Text to print
+    "type text: str
+    """
+    for charcter in text:
+        print(charcter, end="", flush=True)
+        time.sleep(0.04)
+    print()
 def add_item(filename, new_item, new_use):
     content = [f"{new_item},{new_use}\n"]
     with open(filename, 'a') as file:
         file.writelines(content)
+def display_inventory(filename):
+    with open(filename) as file:
+            for line in file:
+                item, use = line.rstrip().split(',')
+                print(f"{item} - {use}")
 
 if __name__ == "__main__":
     main()
