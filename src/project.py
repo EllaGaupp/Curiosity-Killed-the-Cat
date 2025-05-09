@@ -12,8 +12,11 @@ def main():
     while True:
         print("\n\nCuriosity Killed the Cat") 
         # to make each line appear one by one
-        input("")
-        text = "You're in a bustling tavern. You take up a spot in the corner."
+        input()
+        with open('tavern.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text) 
+        text = "\nYou're in a bustling tavern. You take up a spot in the corner."
         anim_print(text)
         input("")
         text = "You overhear that your fellow monster hunters have been going missing."
@@ -71,10 +74,53 @@ def main():
         input("")
         witch_visit, werewolf_visit, vampire_visit = choices(
         witch_visit, werewolf_visit, vampire_visit)
+        prompt_msg = ("Check your bag?\n")
+        anim_print(prompt_msg)
+        choice = input("\n1. To check your bag\n"
+        "2. Skip\n\n")
+        if choice == "1":
+            display_inventory(filename)
+        elif choice == "2":
+            print("")
+            text = "You decided not to check your bag tonight."
+        else:
+            print("Invalid input. Please try again")
+        text = "You've gathered good information. Time to sleep."
         text = "\nDay 4: Investigation"
         anim_print(text)
         input("")
+        text = "This is your final day to investigate."
+        anim_print(text)
+        input("")
+        witch_visit, werewolf_visit, vampire_visit = choices(
+        witch_visit, werewolf_visit, vampire_visit)
+        prompt_msg = ("Check your bag?\n")
+        anim_print(prompt_msg)
+        choice = input("\n1. To check your bag\n"
+        "2. Skip\n\n")
+        if choice == "1":
+            display_inventory(filename)
+        elif choice == "2":
+            print("")
+            text = "You decided not to check your bag tonight."
+        else:
+            print("Invalid input. Please try again")
+        text = "With lots to think about, you sleep."
+        anim_print(text)
+        text = "You've throughly investigated all your suspects."
+        anim_print(text)
+        prompt_msg = "What would you like to do?\n"
+        anim_print(prompt_msg)
+        choice = input("1. Choose someone to accuse and eliminate.\n" \
+        "2. Leave\n\n")
 
+        if choice == "1":
+            final_choice()
+        elif choice == "2":
+            text = "You leave alive yippie"
+            anim_print(text)
+        else:
+            print("Invalid input. Please try again")
         break
 def display_inventory(filename):
     with open(filename) as file:
@@ -330,15 +376,24 @@ def question_werewolf():
             return True
         else:
             print("Invalid input. Please try again")
-    print("yep")
 def vampire():
     while True:
-        print("yep")
+        if question_vampire():
+            break
 def question_vampire():
-    print("yep")
+    while True:
+        print("yep")
+        return True
+def final_choice():
+    print("choose")
 
-
-
+def werewolf_battle():
+    # need to select item to use in battle
+    # need to make sure only the right item works
+    # need to give health to player and monster
+    # need to give % chance to hit for each
+    print("fight dight dight")
+    
 def visited():
     text = "You've already investigated them. Choose again."
     anim_print(text)
