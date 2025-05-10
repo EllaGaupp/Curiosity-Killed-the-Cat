@@ -100,7 +100,9 @@ def main():
             text = "You decided not to check your bag tonight."
         else:
             print("Invalid input. Please try again")
-
+        with open('bed.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         text = "\nYou sleep.\n"
         anim_print(text)
         text = "\nDay 3: Investigation"
@@ -122,6 +124,9 @@ def main():
             text = "You decided not to check your bag tonight."
         else:
             print("Invalid input. Please try again")
+        with open('bed.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         text = "You've gathered good information. Time to sleep."
         text = "\nDay 4: Investigation"
         anim_print(text)
@@ -142,6 +147,9 @@ def main():
             text = "You decided not to check your bag tonight."
         else:
             print("Invalid input. Please try again")
+        with open('bed.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         text = "\nWith lots to think about, you sleep."
         anim_print(text)
         text = "You've throughly investigated all your suspects."
@@ -154,6 +162,9 @@ def main():
         if choice == "1":
             final_choice()
         elif choice == "2":
+            with open('wolf.txt', 'r') as art:
+                text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                print(text)
             text = "You leave the strange town. Something was just too off about it.\n" \
             "A few months later, you hear of it again. It turns out the entire town was made of monsters.\n" \
             "Good thing you got out of there when you did.\n"
@@ -194,12 +205,18 @@ def night():
         "3. Go back to sleep.\n\n"))
 
         if choice == "1":
+            with open('bat.txt', 'r') as art:
+                text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                print(text)
             text = "\nYou fling open the curtains, letting moonlight pour in. As you turn to go back to bed, a blur catches your eye. A bat perhaps?\n" \
             "Taking a closer look out of the window, you can't find the bat. However, you do spot a night guard on patrol.\n" \
             "You go back to sleep after a few minutes.\n"
             anim_print(text)
             break
         elif choice == "2":
+            with open('candle.txt', 'r') as art:
+                text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                print(text)
             text = "\nYou light a candle and open the door. Sticking your head out into the hallway, you hear a scurrying noise somewhere further down.\n" \
             "As you approach, it vanishes. However, left behind is a silver bullet casing. Perhaps left over from a previous hunter?\n" \
             "You return to your room and sleep.\n"
@@ -264,6 +281,9 @@ def choices(witch_visit, werewolf_visit, vampire_visit):
     return witch_visit, werewolf_visit, vampire_visit
 
 def witch():
+    with open('cat.txt', 'r') as art:
+        text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+        print(text)
     text = ("You enter the shop. It's filled with shelves of bottles and jars." \
             "\nVarious plants hang from pots and the scent of strong spices lingers in the air.\n"
         "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
@@ -328,6 +348,9 @@ def question_witch():
             print("Invalid input. Please try again")
 
 def werewolf_full():
+    with open('axe.txt', 'r') as art:
+        text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+        print(text)
     text = ("\nYou wake up and try to find the Lumberjack. After hours of searching you cant find him\n"
     "He doesn't seem to be here...odd.\n")
     anim_print(text)
@@ -380,6 +403,9 @@ def question_werewolf_full():
             print("Invalid input. Please try again")
 
 def werewolf():
+    with open('axe.txt', 'r') as art:
+        text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+        print(text)
     prompt_msg = ("\nYou find the lumberjack by the edge of town. He looks like he's about to head out.\n"
     "He turns to you, axe in hand and asks: 'What're you doin' out here?'\n")
     anim_print(prompt_msg)
@@ -424,6 +450,9 @@ def question_werewolf():
 
 def vampire():
     while True:
+        with open('glass.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         prompt_msg = ("\nYou wait until evening. From the shadows appears the Night Guard. He has a long cloak and pale face.\n"
         "As you intercpt his path, you notice the glint of a glass in his hand. It's filled with a red liquid. Wine?\n"
         "He stops infront of you, taking a sip from his glass.\n"
@@ -501,6 +530,9 @@ def witch_battle():
         "2. Wooden Stake\n" \
         "3. Silver Dagger\n\n")
     if choice == "1":
+        with open('torch.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         while True:
             # might add randomized descriptions of attack
             print(f"\n{player_hp} player hp")
@@ -541,6 +573,9 @@ def witch_battle():
                 text = "but all you feel is strange tingling as she casts another spell.\n" \
                 "Then you start shifting, growing, changing. You're a frog now."
                 anim_print(text)
+                with open('frog.txt', 'r') as art:
+                    text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                    print(text)
                 input("")
                 text = "The Apothecary places you into a tank. As she turns to leave and tend to her wounds, she motions for you to turn around.\n" \
                 "YOu slowly look behind you to find shevles filled with jars. Within those jars were preserved frog legs and eyes."
@@ -569,6 +604,9 @@ def witch_battle():
         text = "but all you feel is strange tingling as she casts another spell.\n" \
         "Then you start shifting, growing, changing. You're a frog now."
         anim_print(text)
+        with open('frog.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         input("")
         text = "The Apothecary places you into a tank. As she turns to leave and tend to her wounds, she motions for you to turn around.\n" \
         "YOu slowly look behind you to find shevles filled with jars. Within those jars were preserved frog legs and eyes." 
@@ -596,6 +634,9 @@ def werewolf_battle():
         "2. Wooden Stake\n" \
         "3. Silver Dagger\n\n")
     if choice == "3":
+        with open('dagger.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         while True:
             # might add randomized descriptions of attack
             print(f"\n{player_hp} player hp")
@@ -636,6 +677,9 @@ def werewolf_battle():
                 text = "but all you feel is a bite on your arm.\n" \
                 "Then you start shifting, growing, changing. You're a werewolf now."
                 anim_print(text)
+                with open('wolf.txt', 'r') as art:
+                    text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                    print(text)
                 input("")
                 text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
                 "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n"\
@@ -665,6 +709,9 @@ def werewolf_battle():
         text = "but all you feel is a bite on your arm.\n" \
         "Then you start shifting, growing, changing. You're a werewolf now."
         anim_print(text)
+        with open('wolf.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         input("")
         text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
         "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n" \
@@ -694,6 +741,9 @@ def vampire_battle():
         "2. Wooden Stake\n" \
         "3. Silver Dagger\n\n")
     if choice == "2":
+        with open('stake.txt', 'r') as art:
+            text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+            print(text)
         while True:
             # might add randomized descriptions of attack
             print(f"\n{player_hp} player hp")
@@ -734,6 +784,9 @@ def vampire_battle():
                 text = "but all you feel is a bite on your neck.\n" \
                 "Then you start shifting, growing, changing. You're a Vampire now."
                 anim_print(text)
+                with open('bat.txt', 'r') as art:
+                    text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                    print(text)
                 input("")
                 text = "Slowly a crowd starts to gather, as the Night Guard looms over you.\n" \
                 "You think at first they're there to be rid of you, but on closer inspection you start to notice...\n"
@@ -762,6 +815,9 @@ def vampire_battle():
         text = "but all you feel is is a bite on your neck.\n" \
         "Then you start shifting, growing, changing. You're a vampire now."
         anim_print(text)
+        with open('bat.txt', 'r') as art:
+                text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+                print(text)
         input("")
         text = "Slowly a crowd starts to gather, as the Night Guard looms over you.\n" \
             "You think at first they're there to be rid of you, but on closer inspection you start to notice...\n" 
@@ -776,6 +832,9 @@ def vampire_battle():
         anim_print(text)
         sys.exit()
 def player_wins():
+    with open('left.txt', 'r') as art:
+        text = art.read().replace('\r\n', '\n').replace('\t', '    ')
+        print(text)
     text = "Success! The monster has been defeated. You go to announce to the townsfolk that they are free!\n" \
     "However, upon sharing your vitory, all you get are looks of horror.\n" \
     "Sobbing, wailing, howling can all be heard from the crowd gathering around you.\n" \
