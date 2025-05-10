@@ -17,6 +17,9 @@ Player_dodge = ["You cleanly sidestep the attack", "You dart to one side narrowl
 Player_attack_dagger = ["Your dagger sings as it slices through the air and through fur.", "You swing towards the Werewolf.", "The silver dagger gleams as you raise it to attack.",
                         "You step forward, slashing in front of you.", "The silver dagger glints in moonlight as you bring it down." ]
 Player_hit = ["You try to dodge, but trip and get hit.", "You try to leap away, but you aren't quick enough.", "You let your guard down and get hurt.", "You try to parry and fail."]
+Witch_dodge = []
+Witch_attack = []
+Witch_reaction = []
 def main():
     global witch_visit, werewolf_visit, vampire_visit
     # to test the code more efficeintly
@@ -72,7 +75,7 @@ def main():
         witch_visit, werewolf_visit, vampire_visit)
         text = "That was a busy day. It's gotten late. Best head back to the inn."
         anim_print(text)
-        prompt_msg = (" Once you get back to the room you can check your bag.\n")
+        prompt_msg = ("Once you get back to the room you can check your bag.\n")
         anim_print(prompt_msg)
         choice = input("\n1. To check your bag\n"
         "2. Skip\n\n")
@@ -174,13 +177,13 @@ def night():
         if choice == "1":
             text = "\nYou fling open the curtains, letting moonlight pour in. As you turn to go back to bed, a blur catches your eye. A bat perhaps?\n" \
             "Taking a closer look out of the window, you can't find the bat. However, you do spot a night guard on patrol.\n" \
-            "You go back to sleep after a few minutes."
+            "You go back to sleep after a few minutes.\n"
             anim_print(text)
             break
         elif choice == "2":
             text = "\nYou light a candle and open the door. Sticking your head out into the hallway, you hear a scurrying noise somewhere further down.\n" \
             "As you approach, it vanishes. However, left behind is a silver bullet casing. Perhaps left over from a previous hunter?\n" \
-            "You return to your room and sleep."
+            "You return to your room and sleep.\n"
             new_item = "Silver Bullet Casing"
             new_use = "perhaps a previous hunter's?"
             add_item(filename, new_item, new_use)
@@ -242,8 +245,9 @@ def choices(witch_visit, werewolf_visit, vampire_visit):
     return witch_visit, werewolf_visit, vampire_visit
 
 def witch():
-    text = ("You enter the shop. It's filled with shelves of bottles and jars. Various plants hang from pots and the scent of strong spices lingers in the air.\n"
-    "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
+    text = ("You enter the shop. It's filled with shelves of bottles and jars." \
+            "\nVarious plants hang from pots and the scent of strong spices lingers in the air.\n"
+        "In the back of the shop is a small counter. Several smaller plants adorn it along with a sleeping black cat and copper bell.\n")
     anim_print(text)
     prompt_msg = ("What do you do?")
     anim_print(prompt_msg)
@@ -257,7 +261,7 @@ def witch():
             if question_witch():
                 break
         elif choice == "2":
-            text = "\nYou're to recognize rosemary, basil, mint, and lavender.\n" \
+            text = "\nYou're able to recognize rosemary, basil, mint, and lavender.\n" \
             "However, there are some plants of strange colors tucked away that you can't identify."
             anim_print(text)
         elif choice == "3":
@@ -276,7 +280,7 @@ def question_witch():
     prompt_msg = ("How do you reply?")
     anim_print(prompt_msg)
     while True:
-        choice = input(("\n1. What's the book?'.\n"
+        choice = input(("\n1. What's the book?.\n"
         "2. What do you sell?\n"
         "3. Do you know about any monsters in town?\n"
         "4. Thank her and leave.\n\n"))
@@ -404,7 +408,7 @@ def vampire():
         prompt_msg = ("\nYou wait until evening. From the shadows appears the Night Guard. He has a long cloak and pale face.\n"
         "As you intercpt his path, you notice the glint of a glass in his hand. It's filled with a red liquid. Wine?\n"
         "He stops infront of you, taking a sip from his glass.\n"
-        "He demands: 'State your buiness. What you doing out so late?'")
+        "He demands: 'State your buiness. What you doing out so late?'\n")
         anim_print(prompt_msg)
         choice = input("How do you respond?\n"
         "1. I'd like to ask you a few questions.\n"
@@ -413,18 +417,18 @@ def vampire():
         if choice == "1":
             text = "The Night Guard replies coldly: 'I could say the samne.'"
             anim_print(text)
-            if question_vampire():
-                break
+            question_vampire()
+            break
         elif choice == "2":
             text = "The Night Guard replies coldly: 'As the guard of this town, it is my buisness.'"
             anim_print(text)
-            if question_vampire():
-                break
+            question_vampire()
+            break
         elif choice == "3":
             text = "The Night Guard replies coldly: 'What I do and drink is none of your concern.'"
             anim_print(text)
-            if question_vampire():
-                break
+            question_vampire()
+            break
         else:
             print("Invalid input. Please try again")
 
@@ -445,17 +449,132 @@ def question_vampire():
         return True
 
 def final_choice():
-    print("choose")
+    while True:
+        prompt_msg = ("\nYou've decided to act on the evidence you have.'")
+        anim_print(prompt_msg)
+        choice = input("Who do you hunt?\n"
+        "1. The Apothecary\n"
+        "2. The Lumberjack.\n"
+        "3. The Night Guard\n\n")
+        if choice == "1":
+            witch_battle()
+            break
+        elif choice == "2":
+            werewolf_battle()
+            break
+        elif choice == "3":
+            vampire_battle()
+            break
+        else:
+            print("Invalid input. Please try again")
+
+def witch_battle():
+    player_hp = 50
+    monster_hp = 45
+    text = "\nYou find the Apothecary in the back of her shop. She's standing in fron of a cauldron.\n" \
+    "The outlining glow of contents outlines her silhouette.\n" \
+    "She hears you approaching and whips around to face you. Her expression goes from shock to a smirk.\n" \
+    "From her robes, she pulls out a wand.\n" \
+    "You attack.\n"
+    anim_print(text)
+    choice = input("What weapon do you fight with?\n\n" \
+        "1. Torch\n" \
+        "2. Wooden Stake\n" \
+        "3. Silver Dagger\n\n")
+    if choice == "3":
+        while True:
+            # might add randomized descriptions of attack
+            print(f"\n{player_hp} player hp")
+            print(f"\n{monster_hp} monster hp\n")
+            if player_hp != 0 and monster_hp !=0:
+                random_number = random.randint(1,10)
+                if random_number == 10 or random_number == 9 or random_number == 8:
+                    text = f"\nYou swing your torch towards her, but {pick_random_item(WW_dodge)}\n"
+                    anim_print(text)
+                    input("")
+                else:
+                    text = f"{pick_random_item(Player_attack_dagger)}\n"
+                    anim_print(text)
+                    text = f"{pick_random_item(WW_reaction)}\n"
+                    anim_print(text) 
+                    monster_hp += -15 
+                    input("")
+                    random_number = random.randint(1,10)
+
+                if random_number == 7 or random_number == 8 or random_number == 9 or random_number == 10:
+                    text = f"{pick_random_item(WW_attack)}\n"
+                    anim_print(text) 
+                    text = f"{pick_random_item(Player_dodge)}\n"
+                    anim_print(text)                    
+                    input("")
+                else: 
+                    text = f"{pick_random_item(WW_attack)}\n"
+                    anim_print(text)
+                    text = f"{pick_random_item(Player_hit)}\n"
+                    anim_print(text) 
+                    player_hp += -20 
+                    input("")
+            elif player_hp == 0 and monster_hp != 0:
+                text = "You fall to the ground, dagger dropping from your hand.\n" \
+                "The Werewolf approaches you menacingly. You brace yourself for the final blow...\n"
+                anim_print(text)
+                input("")
+                text = "but all you feel is a bite on your arm.\n" \
+                "Then you start shifting, growing, changing. You're a werewolf now."
+                anim_print(text)
+                input("")
+                text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
+                "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n"\
+                "You think at first they're there to be rid of you, but on closer inspection you start to notice...\n"
+                anim_print(text)
+                input("")
+                text = "Every one of them is a monster of some sort. All living peacfully in their town.\n" \
+                "Perhaps you should have left them alone when you had the chance.\n" \
+                "Too late now...Now you're one of them."
+                anim_print(text)
+                input("")
+                text = "End"
+                anim_print(text)
+                sys.exit()
+            elif monster_hp == 0 and player_hp != 0:
+                player_wins()
+            else:
+                text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
+                player_wins()      
+    else:
+        text = "Uh oh. While it does some damage, that weapon can't kill a werewolf."
+        anim_print(text)
+        text = "After some fighting, you're tackled and pinned.\n" \
+        "The Werewolf approaches you menacingly. You brace yourself for the final blow..."
+        anim_print(text)
+        input("")
+        text = "but all you feel is a bite on your arm.\n" \
+        "Then you start shifting, growing, changing. You're a werewolf now."
+        anim_print(text)
+        input("")
+        text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
+        "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n" \
+        "You think at first they're there to get rid of you, but on closer inspection you start to notice...\n"
+        anim_print(text)
+        input("")
+        text = "Every one of them is a monster of some sort. All living peacefully in their town.\n" \
+        "Perhaps you should have left them alone when you had the chance.\n" \
+        "Too late now...Now you're one of them."
+        anim_print(text)
+        input("")
+        text = "End"
+        anim_print(text)
+        sys.exit()
 
 def werewolf_battle():
     player_hp = 50
     monster_hp = 60
-    text = "You find the lumberjack in the woods. He's crouched in the clearing, moonlight outlining his silhouette.\n" \
+    text = "\nYou find the lumberjack in the woods. He's crouched in the clearing, moonlight outlining his silhouette.\n" \
     "He hears you approaching and whips around to face you. His body starts changing, growing.\n" \
     "Claws morph from nails, teeth sharpen into fangs. You know what this is.\n" \
-    "You attack."
+    "You attack.\n"
     anim_print(text)
-    choice = input("What weapon do you fight with?\n" \
+    choice = input("What weapon do you fight with?\n\n" \
         "1. Torch\n" \
         "2. Wooden Stake\n" \
         "3. Silver Dagger\n\n")
@@ -543,6 +662,8 @@ def werewolf_battle():
         text = "End"
         anim_print(text)
         sys.exit()
+
+def vampire_battle():
 
 def player_wins():
     text = "Success! The monster has been defeated. You go to announce to the townsfolk that they are free!\n" \
