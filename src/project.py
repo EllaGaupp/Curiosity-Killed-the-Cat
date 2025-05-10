@@ -10,16 +10,25 @@ vampire_visit = False
 WW_dodge = ["he leaps away just in time.", "the Werewolf swats the dagger away.", "he barely jumps out of the way.",
             "the Werewolf quickly backs out of reach."]
 WW_attack = ["The Werewolf lunges at you with its fangs.", "He swipes at you with his claws.", "The Werewolf raises its paw to attack.", ""
-"He snaps at you with his teeth.", "The Werewolf charges towards you.", "He pounces with teeth bared."]
+            "He snaps at you with his teeth.", "The Werewolf charges towards you.", "He pounces with teeth bared."]
 WW_reaction = ["He snarls at the cut", "He growls, wound starting to bleed", "He wimpers as the blade slices.", "He grimaces at the new cut."]
 Player_dodge = ["You cleanly sidestep the attack", "You dart to one side narrowly avoiding the attack", "You predict the move and are able to dodge"
                 , "You leap out of the way of the attack."]
 Player_attack_dagger = ["Your dagger sings as it slices through the air and through fur.", "You swing towards the Werewolf.", "The silver dagger gleams as you raise it to attack.",
                         "You step forward, slashing in front of you.", "The silver dagger glints in moonlight as you bring it down." ]
 Player_hit = ["You try to dodge, but trip and get hit.", "You try to leap away, but you aren't quick enough.", "You let your guard down and get hurt.", "You try to parry and fail."]
-Witch_dodge = []
-Witch_attack = []
-Witch_reaction = []
+Witch_dodge = ["she jumps away just in time.", "the Witch casts a spell to deflect the flames.", "she barely jumps out of the way.",
+                "the Witch quickly backs out of reach."]
+Witch_attack = ["From her wand, a blazing streak of red comes towards you.", "She casts a bolt of lightning at you.", "A ball of fire is fired from her wand.",
+                "The Witch sends shard of ice from her wand.", "The Witch summons rocks to fire at you.", "The Witch summons blades of wind."]
+Witch_reaction = ["She grimaces at the burn", "The Witch clutches her wound.", "She hiss as the flame scorches her.", "The Witch winces at the burn."]
+Player_attack_torch= ["You wave the torch infront of you.", "You thurst the torch towards the Witch.", "You blow the flame towards her."]
+Vampire_dodge = []
+Vampire_attack = []
+Vampire_reaction = []
+Player_attack_stake = []
+
+
 def main():
     global witch_visit, werewolf_visit, vampire_visit
     # to test the code more efficeintly
@@ -481,7 +490,7 @@ def witch_battle():
         "1. Torch\n" \
         "2. Wooden Stake\n" \
         "3. Silver Dagger\n\n")
-    if choice == "3":
+    if choice == "1":
         while True:
             # might add randomized descriptions of attack
             print(f"\n{player_hp} player hp")
@@ -489,26 +498,26 @@ def witch_battle():
             if player_hp != 0 and monster_hp !=0:
                 random_number = random.randint(1,10)
                 if random_number == 10 or random_number == 9 or random_number == 8:
-                    text = f"\nYou swing your torch towards her, but {pick_random_item(WW_dodge)}\n"
+                    text = f"\nYou swing your torch towards her, but {pick_random_item(Witch_dodge)}\n"
                     anim_print(text)
                     input("")
                 else:
-                    text = f"{pick_random_item(Player_attack_dagger)}\n"
+                    text = f"{pick_random_item(Player_attack_torch)}\n"
                     anim_print(text)
-                    text = f"{pick_random_item(WW_reaction)}\n"
+                    text = f"{pick_random_item(Witch_reaction)}\n"
                     anim_print(text) 
                     monster_hp += -15 
                     input("")
                     random_number = random.randint(1,10)
 
                 if random_number == 7 or random_number == 8 or random_number == 9 or random_number == 10:
-                    text = f"{pick_random_item(WW_attack)}\n"
+                    text = f"{pick_random_item(Witch_attack)}\n"
                     anim_print(text) 
                     text = f"{pick_random_item(Player_dodge)}\n"
                     anim_print(text)                    
                     input("")
                 else: 
-                    text = f"{pick_random_item(WW_attack)}\n"
+                    text = f"{pick_random_item(Witch_attack)}\n"
                     anim_print(text)
                     text = f"{pick_random_item(Player_hit)}\n"
                     anim_print(text) 
@@ -542,24 +551,23 @@ def witch_battle():
                 text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
                 player_wins()      
     else:
-        text = "Uh oh. While it does some damage, that weapon can't kill a werewolf."
+        text = "Uh oh. While it does some damage, that weapon can't kill a witch."
         anim_print(text)
-        text = "After some fighting, you're tackled and pinned.\n" \
-        "The Werewolf approaches you menacingly. You brace yourself for the final blow..."
-        anim_print(text)
-        input("")
-        text = "but all you feel is a bite on your arm.\n" \
-        "Then you start shifting, growing, changing. You're a werewolf now."
+        text = "After some fighting, you're hit with an immobilizing spell.\n" \
+        "The Witch approaches you menacingly. You brace yourself for the final blow..."
         anim_print(text)
         input("")
-        text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
-        "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n" \
-        "You think at first they're there to get rid of you, but on closer inspection you start to notice...\n"
+        text = "but all you feel is strange tingling as she casts another spell.\n" \
+        "Then you start shifting, growing, changing. You're a frog now."
         anim_print(text)
         input("")
-        text = "Every one of them is a monster of some sort. All living peacefully in their town.\n" \
+        text = "The Apothecary places you into a tank. As she turns to leave and tend to her wounds, she motions for you to turn around.\n" \
+        "YOu slowly look behind you to find shevles filled with jars. Within those jars were preserved frog legs and eyes." 
+        anim_print(text)
+        input("")
+        text = "It seems every one of them is a monster of some sort. All living peacefully in their town.\n" \
         "Perhaps you should have left them alone when you had the chance.\n" \
-        "Too late now...Now you're one of them."
+        "Too late now..."
         anim_print(text)
         input("")
         text = "End"
@@ -664,7 +672,101 @@ def werewolf_battle():
         sys.exit()
 
 def vampire_battle():
+    player_hp = 50
+    monster_hp = 30
+    text = "\nYou find the Apothecary in the back of her shop. She's standing in fron of a cauldron.\n" \
+    "The outlining glow of contents outlines her silhouette.\n" \
+    "She hears you approaching and whips around to face you. Her expression goes from shock to a smirk.\n" \
+    "From her robes, she pulls out a wand.\n" \
+    "You attack.\n"
+    anim_print(text)
+    choice = input("What weapon do you fight with?\n\n" \
+        "1. Torch\n" \
+        "2. Wooden Stake\n" \
+        "3. Silver Dagger\n\n")
+    if choice == "2":
+        while True:
+            # might add randomized descriptions of attack
+            print(f"\n{player_hp} player hp")
+            print(f"\n{monster_hp} monster hp\n")
+            if player_hp != 0 and monster_hp !=0:
+                random_number = random.randint(1,10)
+                if random_number == 10 or random_number == 9 or random_number == 8 or random_number == 7:
+                    text = f"\nYou swing your torch towards her, but {pick_random_item(Witch_dodge)}\n"
+                    anim_print(text)
+                    input("")
+                else:
+                    text = f"{pick_random_item(Player_attack_stake)}\n"
+                    anim_print(text)
+                    text = f"{pick_random_item(Vampire_reaction)}\n"
+                    anim_print(text) 
+                    monster_hp += -15 
+                    input("")
+                    random_number = random.randint(1,10)
 
+                if random_number == 5 or random_number == 6 or random_number == 7 or random_number == 8 or random_number == 9 or random_number == 10:
+                    text = f"{pick_random_item(Vampire_attack)}\n"
+                    anim_print(text) 
+                    text = f"{pick_random_item(Player_dodge)}\n"
+                    anim_print(text)                    
+                    input("")
+                else: 
+                    text = f"{pick_random_item(Vampire_attack)}\n"
+                    anim_print(text)
+                    text = f"{pick_random_item(Player_hit)}\n"
+                    anim_print(text) 
+                    player_hp += -25 
+                    input("")
+            elif player_hp == 0 and monster_hp != 0:
+                text = "You fall to the ground, dagger dropping from your hand.\n" \
+                "The Werewolf approaches you menacingly. You brace yourself for the final blow...\n"
+                anim_print(text)
+                input("")
+                text = "but all you feel is a bite on your arm.\n" \
+                "Then you start shifting, growing, changing. You're a werewolf now."
+                anim_print(text)
+                input("")
+                text = "The Lumberjack leads you back to town. You limp after him, still getting used to this new form.\n" \
+                "Upon arrival, you pick up dozens of strange scents. The entire town has gathered.\n"\
+                "You think at first they're there to be rid of you, but on closer inspection you start to notice...\n"
+                anim_print(text)
+                input("")
+                text = "Every one of them is a monster of some sort. All living peacfully in their town.\n" \
+                "Perhaps you should have left them alone when you had the chance.\n" \
+                "Too late now...Now you're one of them."
+                anim_print(text)
+                input("")
+                text = "End"
+                anim_print(text)
+                sys.exit()
+            elif monster_hp == 0 and player_hp != 0:
+                player_wins()
+            else:
+                text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
+                player_wins()      
+    else:
+        text = "Uh oh. While it does some damage, that weapon can't kill a witch."
+        anim_print(text)
+        text = "After some fighting, you're hit with an immobilizing spell.\n" \
+        "The Witch approaches you menacingly. You brace yourself for the final blow..."
+        anim_print(text)
+        input("")
+        text = "but all you feel is strange tingling as she casts another spell.\n" \
+        "Then you start shifting, growing, changing. You're a frog now."
+        anim_print(text)
+        input("")
+        text = "The Apothecary places you into a tank. As she turns to leave and tend to her wounds, she motions for you to turn around.\n" \
+        "YOu slowly look behind you to find shevles filled with jars. Within those jars were preserved frog legs and eyes." 
+        anim_print(text)
+        input("")
+        text = "It seems every one of them is a monster of some sort. All living peacefully in their town.\n" \
+        "Perhaps you should have left them alone when you had the chance.\n" \
+        "Too late now..."
+        anim_print(text)
+        input("")
+        text = "End"
+        anim_print(text)
+        sys.exit()
 def player_wins():
     text = "Success! The monster has been defeated. You go to announce to the townsfolk that they are free!\n" \
     "However, upon sharing your vitory, all you get are looks of horror.\n" \
