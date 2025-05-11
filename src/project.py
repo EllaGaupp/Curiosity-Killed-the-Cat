@@ -11,8 +11,8 @@ WW_dodge = ["he leaps away just in time.", "the Werewolf swats the dagger away."
             "the Werewolf quickly backs out of reach."]
 WW_attack = ["The Werewolf lunges at you with its fangs.", "He swipes at you with his claws.", "The Werewolf raises its paw to attack.", ""
             "He snaps at you with his teeth.", "The Werewolf charges towards you.", "He pounces with teeth bared."]
-WW_reaction = ["He snarls at the cut", "He growls, wound starting to bleed", "He wimpers as the blade slices.", "He grimaces at the new cut."]
-Player_dodge = ["You cleanly sidestep the attack", "You dart to one side narrowly avoiding the attack", "You predict the move and are able to dodge"
+WW_reaction = ["He snarls at the cut.", "He growls, wound starting to bleed.", "He wimpers as the blade slices.", "He grimaces at the new cut."]
+Player_dodge = ["You cleanly sidestep the attack.", "You dart to one side narrowly avoiding the attack.", "You predict the move and are able to dodge."
                 , "You leap out of the way of the attack."]
 Player_attack_dagger = ["Your dagger sings as it slices through the air and through fur.", "You swing towards the Werewolf.", "The silver dagger gleams as you raise it to attack.",
                         "You step forward, slashing in front of you.", "The silver dagger glints in moonlight as you bring it down." ]
@@ -21,14 +21,14 @@ Witch_dodge = ["she jumps away just in time.", "the Witch casts a spell to defle
                 "the Witch quickly backs out of reach."]
 Witch_attack = ["From her wand, a blazing streak of red comes towards you.", "She casts a bolt of lightning at you.", "A ball of fire is fired from her wand.",
                 "The Witch sends shard of ice from her wand.", "The Witch summons rocks to fire at you.", "The Witch summons blades of wind."]
-Witch_reaction = ["She grimaces at the burn", "The Witch clutches her wound.", "She hiss as the flame scorches her.", "The Witch winces at the burn."]
+Witch_reaction = ["She grimaces at the burn.", "The Witch clutches her wound.", "She hiss as the flame scorches her.", "The Witch winces at the burn."]
 Player_attack_torch= ["You wave the torch infront of you.", "You thurst the torch towards the Witch.", "You blow the flame towards her."]
 Vampire_dodge = ["he leaps away just in time.", "the Vampire swats the dagger away.", "he barely jumps out of the way.",
             "the Vampire quickly backs out of reach."]
-Vampire_attack = ["The Vampire reaches towards you with long, sharp nails.", "The Vampire lunges at you, fangs glinting in the moonlight", "He leaps at you, reahcing for your neck.",
+Vampire_attack = ["The Vampire reaches towards you with long, sharp nails.", "The Vampire lunges at you, fangs glinting in the moonlight.", "He leaps at you, reahcing for your neck.",
                   "He slashes at you with his nails." ]
-Vampire_reaction = ["He snarls at the cut", "He frowns, wound starting to bleed", "He snarls as the stake pierces his skin.", "He grimaces at the new cut."]
-Player_attack_stake = ["You thrust the stake towards his heart."]
+Vampire_reaction = ["He snarls as the stake pierces his heart."]
+Player_attack_stake = ["You thrust the stake towards his chest."]
 
 
 def main():
@@ -53,7 +53,7 @@ def main():
         text = "After asking around, eveything seems to trace back to one secluded town..."
         anim_print(text)
         input("")
-        text = "Day 1: Checking In"
+        text = "\nDay 1: Checking In"
         anim_print(text)
         input("")
         text = "It's been a long day of traveling and you find a small inn to stay in. \nSo far, the town is pretty unassuming other than the occasional glare cast your way.\n\nThe front desk clerk greets you: 'What d'ya need?'"
@@ -87,7 +87,7 @@ def main():
         input("")
         witch_visit, werewolf_visit, vampire_visit = choices_fullmoon(
         witch_visit, werewolf_visit, vampire_visit)
-        text = "That was a busy day. It's gotten late. Best head back to the inn."
+        text = "\nThat was a busy day. It's gotten late. Best head back to the inn."
         anim_print(text)
         prompt_msg = ("Once you get back to the room you can check your bag.\n")
         anim_print(prompt_msg)
@@ -162,7 +162,7 @@ def main():
         if choice == "1":
             final_choice()
         elif choice == "2":
-            with open('wolf.txt', 'r') as art:
+            with open('left.txt', 'r') as art:
                 text = art.read().replace('\r\n', '\n').replace('\t', '    ')
                 print(text)
             text = "You leave the strange town. Something was just too off about it.\n" \
@@ -319,7 +319,7 @@ def question_witch():
     prompt_msg = ("How do you reply?")
     anim_print(prompt_msg)
     while True:
-        choice = input(("\n1. What's the book?.\n"
+        choice = input(("\n1. What's the book?\n"
         "2. What do you sell?\n"
         "3. Do you know about any monsters in town?\n"
         "4. Thank her and leave.\n\n"))
@@ -351,7 +351,7 @@ def werewolf_full():
     with open('axe.txt', 'r') as art:
         text = art.read().replace('\r\n', '\n').replace('\t', '    ')
         print(text)
-    text = ("\nYou wake up and try to find the Lumberjack. After hours of searching you cant find him\n"
+    text = ("\nYou wake up and try to find the Lumberjack. After hours of searching you cant find him.\n"
     "He doesn't seem to be here...odd.\n")
     anim_print(text)
     prompt_msg = ("Who do you ask?")
@@ -382,7 +382,7 @@ def werewolf_full():
             print("Invalid input. Please try again")
 
 def question_werewolf_full():
-    text = ("Night it starting to fall. You have some suspicions of the Lumberjack's whereabouts.\n")
+    text = ("\nNight it starting to fall. You have some suspicions of the Lumberjack's whereabouts.\n")
     anim_print(text)
     prompt_msg = ("What do you do?")
     anim_print(prompt_msg)
@@ -422,15 +422,15 @@ def werewolf():
             print("Invalid input. Please try again")
 
 def question_werewolf():
-    prompt_msg = ("He doesn't reply. Instead, he turns towards the forrest and motions for you to follow.\n")
+    prompt_msg = ("\nHe doesn't reply. Instead, he turns towards the forrest and motions for you to follow.\n")
     anim_print(prompt_msg)
     while True:
         choice = input(("Do you go with him?\n"
-        "1. yes\n"
-        "2. no\n\n"))
+        "1. Yes\n"
+        "2. No\n\n"))
 
         if choice == "1":
-            text = "You ultimately decide to go with him. Following a winding path, you reach a clearing. " \
+            text = "\nYou ultimately decide to go with him. Following a winding path, you reach a clearing. " \
             "\nThere the Lumberjack takes his axe and starts swinging at a nearby tree. He fells it's very quickly...almost too quickly.\n" \
             "He appears to be in deep concentration with his job. You won't get much questioning done today, but you still stay to observe.\n" \
             "You note tufts of fur clinging to his jacket. As the sun sets, you start to hear the howls of wolves, yet he seems unbothered."
@@ -449,7 +449,6 @@ def question_werewolf():
             print("Invalid input. Please try again")
 
 def vampire():
-    while True:
         with open('glass.txt', 'r') as art:
             text = art.read().replace('\r\n', '\n').replace('\t', '    ')
             print(text)
@@ -458,47 +457,48 @@ def vampire():
         "He stops infront of you, taking a sip from his glass.\n"
         "He demands: 'State your buiness. What you doing out so late?'\n")
         anim_print(prompt_msg)
-        choice = input("How do you respond?\n"
-        "1. I'd like to ask you a few questions.\n"
-        "2. None of your buisness.\n"
-        "3. Why do you have a drink and what is it?\n\n")
-        if choice == "1":
-            text = "The Night Guard replies coldly: 'I could say the samne.'"
-            anim_print(text)
-            question_vampire()
-            break
-        elif choice == "2":
-            text = "The Night Guard replies coldly: 'As the guard of this town, it is my buisness.'"
-            anim_print(text)
-            question_vampire()
-            break
-        elif choice == "3":
-            text = "The Night Guard replies coldly: 'What I do and drink is none of your concern.'"
-            anim_print(text)
-            question_vampire()
-            break
-        else:
-            print("Invalid input. Please try again")
+        while True:
+            choice = input("How do you respond?\n"
+            "1. I'd like to ask you a few questions.\n"
+            "2. None of your buisness.\n"
+            "3. Why do you have a drink and what is it?\n\n")
+            if choice == "1":
+                text = "\nThe Night Guard replies coldly: 'I could say the samne.'"
+                anim_print(text)
+                question_vampire()
+                break
+            elif choice == "2":
+                text = "\nThe Night Guard replies coldly: 'As the guard of this town, it is my buisness.'"
+                anim_print(text)
+                question_vampire()
+                break
+            elif choice == "3":
+                text = "\nThe Night Guard replies coldly: 'What I do and drink is none of your concern.'"
+                anim_print(text)
+                question_vampire()
+                break
+            else:
+                print("Invalid input. Please try again")
 
 def question_vampire():
     while True:
         text = "\nHe then sighs and swirls his glass. \n" \
-        "He asks: 'I suppose you're here to ask me about a monster. I'll tell you right now you're not the first to ask.\n" \
+        "He says: 'I suppose you're here to ask me about a monster. I'll tell you right now you're not the first to ask.\n" \
         "I'd suggest you just drop the matter. Trust me, if there was a monster here, I'd know.\n" \
-        "Everyone knows everyone. How do we know you're not the monster?'\n" 
+        "Everyone knows everyone here. How do we know you're not the monster?'\n" 
         anim_print(text)
         input("")
         text = "After taking a large drink from his cup, the Night Guard sets the now empty glass on a near by table.\n" \
         "He turns to continue his patrol: 'Take it. I have nothing to hide from you.'"
         anim_print(text)
         new_item = "Empty Glass"
-        new_use = "Used to hold mysterious red liquid"
+        new_use = "used to hold mysterious red liquid"
         add_item(filename, new_item, new_use)
         return True
 
 def final_choice():
     while True:
-        prompt_msg = ("\nYou've decided to act on the evidence you have.'")
+        prompt_msg = ("\nYou've decided to act on the evidence you have.")
         anim_print(prompt_msg)
         choice = input("Who do you hunt?\n"
         "1. The Apothecary\n"
@@ -549,6 +549,8 @@ def witch_battle():
                     text = f"{pick_random_item(Witch_reaction)}\n"
                     anim_print(text) 
                     monster_hp += -15 
+                    if monster_hp < 0:
+                        monster_hp = 0
                     input("")
                     random_number = random.randint(1,10)
 
@@ -564,6 +566,8 @@ def witch_battle():
                     text = f"{pick_random_item(Player_hit)}\n"
                     anim_print(text) 
                     player_hp += -20 
+                    if player_hp < 0:
+                        player_hp = 0
                     input("")
             elif player_hp == 0 and monster_hp != 0:
                 text = "You fall to the ground, torch dropping from your hand.\n" \
@@ -593,6 +597,7 @@ def witch_battle():
                 player_wins()
             else:
                 text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
+                anim_print(text)
                 player_wins()      
     else:
         text = "Uh oh. While it does some damage, that weapon can't kill a witch."
@@ -652,7 +657,9 @@ def werewolf_battle():
                     anim_print(text)
                     text = f"{pick_random_item(WW_reaction)}\n"
                     anim_print(text) 
-                    monster_hp += -10  
+                    monster_hp += -10
+                    if monster_hp < 0:
+                        monster_hp = 0  
                     input("")
                     random_number = random.randint(1,10)
 
@@ -667,7 +674,9 @@ def werewolf_battle():
                     anim_print(text)
                     text = f"{pick_random_item(Player_hit)}\n"
                     anim_print(text) 
-                    player_hp += -10 
+                    player_hp += -10
+                    if player_hp < 0:
+                        player_hp = 0 
                     input("")
             elif player_hp == 0 and monster_hp != 0:
                 text = "You fall to the ground, dagger dropping from your hand.\n" \
@@ -698,6 +707,7 @@ def werewolf_battle():
                 player_wins()
             else:
                 text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
+                anim_print(text)
                 player_wins()      
     else:
         text = "Uh oh. While it does some damage, that weapon can't kill a werewolf."
@@ -730,7 +740,7 @@ def werewolf_battle():
 def vampire_battle():
     player_hp = 50
     monster_hp = 30
-    text = "\nYou find the Night Guard in patrolling an alley that evening. He's standing in front of a streetlight.\n" \
+    text = "\nYou find the Night Guard patrolling an alleyway that evening. He's standing in front of a streetlight.\n" \
     "The glow outlines his lanky silhouette.\n" \
     "He hears you approaching and whips around to face you. His expression a grim determination.\n" \
     "He lunges at you, hands outscretched.\n" \
@@ -775,6 +785,8 @@ def vampire_battle():
                     text = f"{pick_random_item(Player_hit)}\n"
                     anim_print(text) 
                     player_hp += -25 
+                    if player_hp < 0:
+                        player_hp = 0
                     input("")
             elif player_hp == 0 and monster_hp != 0:
                 text = "You fall to the ground, stake dropping from your hand.\n" \
@@ -804,6 +816,7 @@ def vampire_battle():
                 player_wins()
             else:
                 text = "You're both gravely injured. With one last boost of energy, you make the killing blow.\n"
+                anim_print(text)
                 player_wins()      
     else:
         text = "Uh oh. While it does some damage, that weapon can't kill a vampire."
@@ -835,10 +848,10 @@ def player_wins():
     with open('left.txt', 'r') as art:
         text = art.read().replace('\r\n', '\n').replace('\t', '    ')
         print(text)
-    text = "Success! The monster has been defeated. You go to announce to the townsfolk that they are free!\n" \
+    text = "\nSuccess! The monster has been defeated. You go to announce to the townsfolk that they are free!\n" \
     "However, upon sharing your vitory, all you get are looks of horror.\n" \
     "Sobbing, wailing, howling can all be heard from the crowd gathering around you.\n" \
-    "You're so confused. You saved them! Why are they...\n"
+    "You're so confused. You saved them! Why are they..."
     anim_print(text)
     input("")
     text = "Oh. Now you see.\n" \
@@ -855,7 +868,7 @@ def player_wins():
     sys.exit()
 #  technical stuff
 def visited():
-    text = "You've already investigated them. Choose again."
+    text = "\nYou've already investigated them. Choose again."
     anim_print(text)
 def anim_print(text):
     """Works like print, but animates the display of each character
@@ -865,7 +878,7 @@ def anim_print(text):
     """
     for charcter in text:
         print(charcter, end="", flush=True)
-        time.sleep(0.00)
+        time.sleep(0.04)
     print()
 def add_item(filename, new_item, new_use):
     content = [f"{new_item},{new_use}\n"]
